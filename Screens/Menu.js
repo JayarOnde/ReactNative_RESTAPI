@@ -27,7 +27,10 @@ export default class Menu extends Component {
             checked:true
         };
 
-        this.submit = this.submit.bind(this);
+
+        this.submitCalculator = this.submitCalculator.bind(this);
+        this.submitHistory = this.submitHistory.bind(this);
+        this.submitProduct = this.submitProduct.bind(this);
         this.submitProfile = this.submitProfile.bind(this);
 
     }
@@ -44,10 +47,22 @@ export default class Menu extends Component {
         const {navigate} = this.props.navigation;
         navigate("Profile");
     }
-
-    submit()
+    submitCalculator()
     {
+        const {navigate} = this.props.navigation;
+        navigate("QuoteCalculator");
+    }
 
+    submitHistory()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("QuoteHistory");
+    }
+
+    submitProduct()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("QuoteHistory");
     }
 
     render() {
@@ -69,16 +84,16 @@ export default class Menu extends Component {
                     <TouchableOpacity onPress={this.submitProfile}>
                     <Image source={require('../Images/Dashboard/profile.png')} resizeMode="center" style={{width: 150, height: 150,marginTop:20,marginLeft:20,alignSelf:'center'}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.submit}>
+                    <TouchableOpacity onPress={this.submitProduct}>
                     <Image source={require('../Images/Dashboard/product.png')} resizeMode="center" style={{width: 150, height: 150,marginTop:20,marginLeft:20,alignSelf:'center'}}/>
                     </TouchableOpacity>
                 </View>
 
                 <View style={{flex:1,flexDirection:'row'}}>
-                    <TouchableOpacity onPress={this.submit}>
+                    <TouchableOpacity onPress={this.submitCalculator}>
                     <Image source={require('../Images/Dashboard/calculator.png')} resizeMode="center" style={{width: 150, height: 150,marginLeft:20}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.submit}>
+                    <TouchableOpacity onPress={this.submitHistory}>
                         <Image source={require('../Images/Dashboard/history.png')} resizeMode="center" style={{width: 150, height: 150,marginLeft:20}}/>
                     </TouchableOpacity>
                 </View>

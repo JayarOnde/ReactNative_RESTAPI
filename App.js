@@ -6,6 +6,9 @@ import LoginOptions from './Screens/LoginOptions.js';
 import Profile from './Screens/Profile.js';
 import SignUp from './Screens/SignUp.js';
 import Menu from './Screens/Menu.js';
+import QuoteCalculator from './Screens/QuoteCalculator.js';
+import QuoteHistory from './Screens/QuoteHistory.js';
+import CalculatorLocation from './Screens/CalculatorLocation.js';
 import SplashScreen from './Screens/SplashScreen';
 
 const APP = createStackNavigator({
@@ -20,6 +23,15 @@ const APP = createStackNavigator({
     },
     Profile: {
         screen: Profile
+    },
+    QuoteCalculator: {
+        screen: QuoteCalculator
+    },
+    CalculatorLocation: {
+        screen: CalculatorLocation
+    },
+    QuoteHistory: {
+    screen: QuoteHistory
     },
     Menu: {
         screen: Menu

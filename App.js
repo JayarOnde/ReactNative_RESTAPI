@@ -8,6 +8,9 @@ import SignUp from './Screens/SignUp.js';
 import Menu from './Screens/Menu.js';
 import QuoteCalculator from './Screens/QuoteCalculator.js';
 import QuoteHistory from './Screens/QuoteHistory.js';
+import QuoteCalculatorCheckBox from './Screens/QuoteCalculatorCheckBox.js';
+import QuoteCalculatorRemoval from './Screens/QuoteCalculatorRemoval.js';
+import QuoteCalculatorPenetration from './Screens/QuoteCalculatorPenetration.js';
 import CalculatorLocation from './Screens/CalculatorLocation.js';
 import SplashScreen from './Screens/SplashScreen';
 
@@ -27,8 +30,17 @@ const APP = createStackNavigator({
     QuoteCalculator: {
         screen: QuoteCalculator
     },
+    QuoteCalculatorRemoval: {
+        screen: QuoteCalculatorRemoval
+    },
+    QuoteCalculatorPenetration: {
+        screen: QuoteCalculatorPenetration
+    },
     CalculatorLocation: {
         screen: CalculatorLocation
+    },
+    QuoteCalculatorCheckBox: {
+        screen: QuoteCalculatorCheckBox
     },
     QuoteHistory: {
     screen: QuoteHistory

@@ -8,6 +8,7 @@ import {
     NetInfo,
     ScrollView
 } from 'react-native';
+import QuoteCalculatorCheckBox from "./QuoteCalculatorCheckBox";
 
 const {width, height} = Dimensions.get('window');
 
@@ -23,12 +24,23 @@ export default class CalculatorLocation extends Component {
                 {key: '3', name: "Bathroom 2"},
                 {key: '4', name: "Bathroom 3"}
             ]
-        }
+        };
+
+        this.goBack = this.goBack.bind(this);
+        this.showForm = this.showForm.bind(this);
     }
 
     static navigationOptions = {
         header: null
     };
+
+    showForm()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("QuoteCalculatorCheckBox");
+
+    }
+
 
     FlatListItemSeparator = () => {
         return (
@@ -48,12 +60,18 @@ export default class CalculatorLocation extends Component {
 
     }
 
+    goBack()
+    {
+        this.props.navigation.pop();
+    }
+
 
     render() {
         return (
             <ImageBackground
                 style={styles.container}
                 source={require('../Images/login/background_img.png')}>
+                <ScrollView>
                 <View
                     style={{
                         position: 'absolute',
@@ -94,7 +112,7 @@ export default class CalculatorLocation extends Component {
                         data={this.state.FlatListItems}
 
                         renderItem={({item}) =>
-                            <View style={{flex: 1, flexDirection: 'row',height:60,borderRadius:5,borderColor:'#000000',borderWidth:1,marginTop:20,marginLeft:20,marginRight:20}}>
+                            <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:60,borderRadius:5,borderColor:'#000000',borderWidth:1,marginTop:20,marginLeft:20,marginRight:20}}>
                                 <Text style={styles.item}
                                       onPress={this.GetItem.bind(this, item.key)}> {item.key}{"."} {item.name} </Text>
                                 <TouchableOpacity onPress={this.submit}>
@@ -108,6 +126,28 @@ export default class CalculatorLocation extends Component {
 
 
                 </View>
+
+                <TouchableOpacity onPress={this.submit}>
+                    <View style={styles.buttonAdd}>
+                        <Text style={styles.buttonTextAdd}>ADD +</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20}}>
+                    <TouchableOpacity onPress={this.showForm}>
+                        <View style={styles.buttonNext}>
+                            <Text style={styles.buttonTextNext}>NEXT</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                </View>
+
+                    <View style={styles.profilebutton}>
+                        <TouchableOpacity onPress={this.goBack}>
+                            <Image source={require('../Images/ClientInfo/leftarrow.png')} resizeMode="stretch" style={{width: 20, height: 20}}/>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </ImageBackground>
 
         );
@@ -167,11 +207,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf:'flex-end',
         padding: 15,
         borderRadius: 5,
         marginTop:10,
         height: 20,
-        marginLeft: width / 10,
+        marginRight:30,
         borderWidth: 1,
         borderColor: '#00CA9D'
     },
@@ -179,6 +220,54 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#00CA9D'
-    }
+    },
+    buttonTextNext: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+
+    buttonTextAdd: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+
+    buttonNext: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+        marginLeft:20,
+        marginRight:20,
+        marginTop:30,
+        backgroundColor: '#00CA9D',
+        borderRadius: 30,
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+
+    buttonAdd: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        alignSelf:'flex-end',
+        padding: 15,
+        width:120,
+        height:50,
+        marginRight:20,
+        marginTop:30,
+        backgroundColor: '#015285',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    profilebutton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position:'absolute',
+        left:20,
+        width:30,
+        height:30,
+        marginTop:30
+    },
 
 });

@@ -10,6 +10,7 @@ import QuoteCalculator from './Screens/QuoteCalculator.js';
 import QuoteHistory from './Screens/QuoteHistory.js';
 import QuoteCalculatorCheckBox from './Screens/QuoteCalculatorCheckBox.js';
 import QuoteCalculatorRemoval from './Screens/QuoteCalculatorRemoval.js';
+import QutoeFinalize from './Screens/QutoeFinalize.js';
 import QuoteCalculatorPenetration from './Screens/QuoteCalculatorPenetration.js';
 import CalculatorLocation from './Screens/CalculatorLocation.js';
 import SplashScreen from './Screens/SplashScreen';
@@ -44,6 +45,9 @@ const APP = createStackNavigator({
     },
     QuoteHistory: {
     screen: QuoteHistory
+    },
+    QutoeFinalize: {
+    screen: QutoeFinalize
     },
     Menu: {
         screen: Menu

@@ -6,7 +6,8 @@ import {
     AsyncStorage,
     TouchableOpacity,
     NetInfo,
-    ScrollView
+    ScrollView,
+    Picker
 } from 'react-native';
 import CheckBox from 'react-native-check-box'
 const {width, height} = Dimensions.get('window');
@@ -18,10 +19,12 @@ export default class QuoteCalculatorPenetration extends Component {
         this.state={
             isChecked:false,
             isAnother:false,
+            selectedValue:'',
         };
 
         this.goBack = this.goBack.bind(this);
         this.showForm = this.showForm.bind(this);
+        this.getSelectedMaker = this.getSelectedMaker.bind(this);
     }
 
     static navigationOptions = {
@@ -35,8 +38,18 @@ export default class QuoteCalculatorPenetration extends Component {
     showForm()
     {
         const {navigate} = this.props.navigation;
-        navigate("QuoteCalculatorPenetration");
+        navigate("QutoeFinalize");
 
+    }
+
+    getSelectedMaker(itemValue) {
+        if (itemValue === "Vehicle Company") {
+            Alert.alert("Invalid Value");
+        }
+        else {
+
+            this.setState({selectedValue: itemValue});
+        }
     }
 
 
@@ -150,9 +163,41 @@ export default class QuoteCalculatorPenetration extends Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
+
+                        <View style={{justifyContent: 'center', marginLeft: 15, marginRight: 15,
+                            backgroundColor: '#D9F3EE',
+                            borderRadius: 10,
+                            borderWidth: 1,
+                            marginTop:20,
+                            height:60,
+                            borderColor: '#fff'
+
+                        }}>
+                                    <Picker
+                                        style={{color: '#015285',alignSelf:'flex-end',width:180}}
+                                        selectedValue={this.state.selectedValue}
+                                        onValueChange={(itemValue) => {
+                                            {
+                                                this.getSelectedMaker(itemValue)
+                                            }
+                                        }}>
+                                        <Picker.Item label="3" value="Vehicle Company"/>
+                                        <Picker.Item label="Honda" value="honda"/>
+                                        <Picker.Item label="Hino" value="hino"/>
+                                        <Picker.Item label="Indus" value="indus "/>
+                                        <Picker.Item label="Master" value="master"/>
+                                        <Picker.Item label="Nissan" value="nissan"/>
+                                        <Picker.Item label="Pak Hero" value="pakhero"/>
+                                        <Picker.Item label="Suzuki" value="suzuki "/>
+                                        <Picker.Item label="Toyota" value="toyota"/>
+                                        <Picker.Item label="United" value="united"/>
+                                        <Picker.Item label="Other" value="other"/>
+                                    </Picker>
+
+                        </View>
                     </View>
 
-                    <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/5}}>
+                    <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/12}}>
                         <TouchableOpacity onPress={this.showForm}>
                             <View style={styles.buttonNext}>
                                 <Text style={styles.buttonTextNext}>NEXT</Text>

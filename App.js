@@ -14,6 +14,11 @@ import QutoeFinalize from './Screens/QutoeFinalize.js';
 import QuoteCalculatorPenetration from './Screens/QuoteCalculatorPenetration.js';
 import CalculatorLocation from './Screens/CalculatorLocation.js';
 import SplashScreen from './Screens/SplashScreen';
+import Product from './Screens/Product.js';
+import SinglePlyBrowseBy from './Screens/SinglePlyBrowseBy.js';
+import ProductTermination from './Screens/ProductTermination.js';
+import SinglePlyAluminium from './Screens/SinglePlyAluminium.js';
+import LiquidDetails from './Screens/LiquidDetails.js';
 
 const APP = createStackNavigator({
     SplashScreen: {
@@ -27,6 +32,18 @@ const APP = createStackNavigator({
     },
     Profile: {
         screen: Profile
+    },
+    Product: {
+        screen: Product
+    },
+    SinglePlyBrowseBy: {
+        screen: SinglePlyBrowseBy
+    },
+    ProductTermination: {
+        screen: ProductTermination
+    },
+    SinglePlyAluminium: {
+        screen: SinglePlyAluminium
     },
     QuoteCalculator: {
         screen: QuoteCalculator
@@ -51,6 +68,9 @@ const APP = createStackNavigator({
     },
     Menu: {
         screen: Menu
+    },
+    LiquidDetails: {
+        screen: LiquidDetails
     },
     SignUp: {
         screen: SignUp

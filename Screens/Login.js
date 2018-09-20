@@ -22,11 +22,12 @@ export default class Login extends Component {
         this.state = {
             isLoading: false,
             userEmail: '',
-            userMobile: '',
+            userPassword: '',
             checked:true
         };
 
         this.submit = this.submit.bind(this);
+        this.onPressLogin =this.onPressLogin.bind(this);
 
     }
 
@@ -39,9 +40,64 @@ export default class Login extends Component {
 
     submit()
     {
+/*        if(this.state.userEmail === "")
+        {
+            Alert.alert("Kindly Provide Email");
+        }
+        else if (this.state.userPassword === "")
+        {
+            Alert.alert("Kindly Provide Password");
+        }
+        else
+        {
+            this.onPressLogin(this.state.userEmail,this.state.userPassword)
+        }*/
         const {navigate} = this.props.navigation;
         navigate("Menu");
+    }
 
+    onPressLogin(email, password) {
+        this.setState({isLoading: true});
+        fetch(URL.apiUrlLogin, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "login": email,
+                "password": password,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(responseData)
+                if (responseData.responseCode === 200) {
+                    this.setState({isLoading: false});
+                    /*   AsyncStorage.setItem("userData", JSON.stringify(responseData));
+                       AsyncStorage.setItem("accessToken", JSON.stringify(responseData.access_token));
+                       AsyncStorage.setItem("user_id", JSON.stringify(responseData.user.id));
+                       if (responseData.user.driver) {
+                           AsyncStorage.setItem('car_image', responseData.user.driver.front_image);
+                       }
+                       if (responseData.user.carDetail === true) {
+                           const {navigate} = this.props.navigation;
+                           navigate("MyMap");
+                       }
+                       else {
+                           const {navigate} = this.props.navigation;
+                           navigate("CarBasicInfoAttempt");
+                       }
+                   }*/
+                }
+                else {
+                    this.setState({isLoading: false});
+                    Alert.alert("Invalid Login");
+                }
+            })
+            .catch((error) => {
+                Alert.alert("Please Check Your Internet Connection");
+            });
     }
 
     render() {

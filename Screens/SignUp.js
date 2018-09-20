@@ -60,10 +60,12 @@ export default class SignUp extends Component {
                     </Text>
                 </View>
 
-                <ImageBackground   style={styles.inputContainer} source={require('../Images/SignUp/profile_background.png')}>
+               {/* <ImageBackground   style={styles.inputContainer} source={require('../Images/SignUp/profile_background.png')}>
                     <Image source={require('../Images/SignUp/profile_upload.png')} resizeMode="center" style={{width: 100, height: 100}}/>
                     <Image source={require('../Images/SignUp/plus.png')} resizeMode="center" style={{width: 30, height: 30,position:'absolute',top:100}}/>
-                </ImageBackground>
+                </ImageBackground>*/}
+                <View style={{marginTop:120}}>
+                </View>
                 <ImageBackground   style={styles.inputContainer3} source={require('../Images/SignUp/profile_background.png')}>
                     <Image source={require('../Images/SignUp/username.png')} resizeMode="center" style={{width: 20, height: 20,marginTop:20,marginLeft:20}}/>
                     <TextInput
@@ -147,9 +149,9 @@ export default class SignUp extends Component {
                     </TouchableOpacity>
 
                 </View>
-                    <View style={styles.profilebutton}>
+                   {/* <View style={styles.profilebutton}>
                     <Image source={require('../Images/SignUp/plus.png')} resizeMode="center" style={{width: 50, height: 50}}/>
-                    </View>
+                    </View>*/}
                 </ScrollView>
             </ImageBackground>
 

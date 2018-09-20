@@ -62,7 +62,7 @@ export default class Menu extends Component {
     submitProduct()
     {
         const {navigate} = this.props.navigation;
-        navigate("QuoteHistory");
+        navigate("Product");
     }
 
     render() {

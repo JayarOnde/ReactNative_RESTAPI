@@ -16,7 +16,10 @@ export default class QuoteCalculatorRemoval extends Component {
     constructor(props) {
         super(props);
         this.state={
-            isChecked:false,
+            removalYes:false,
+            removalNo:false,
+            waterNo:false,
+           waterYes:false,
             isAnother:false,
         };
 
@@ -115,21 +118,44 @@ export default class QuoteCalculatorRemoval extends Component {
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:30}}
                             onClick={()=>{
-                                this.setState({
-                                    isAnother:!this.state.isAnother
-                                })
+                                if(this.state.removalYes) {
+                                    this.setState({
+                                        removalYes: !this.state.removalYes
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        removalYes: !this.state.removalYes,
+                                        removalNo: false
+
+                                    });
+                                }
+
                             }}
-                            isChecked={this.state.isAnother}
+                            isChecked={this.state.removalYes}
                             rightText={"Yes"}
                         />
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:10}}
                             onClick={()=>{
-                                this.setState({
-                                    isChecked:!this.state.isChecked
-                                })
+                                if(this.state.removalNo) {
+                                    this.setState({
+                                        removalNo: !this.state.removalNo
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        removalNo: !this.state.removalNo,
+                                        removalYes: false
+
+                                    });
+                                }
                             }}
-                            isChecked={this.state.isChecked}
+                            isChecked={this.state.removalNo}
                             rightText={"No"}
                         />
 
@@ -185,21 +211,43 @@ export default class QuoteCalculatorRemoval extends Component {
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:30}}
                             onClick={()=>{
-                                this.setState({
-                                    isAnother:!this.state.isAnother
-                                })
+                                if(this.state.waterYes) {
+                                    this.setState({
+                                        waterYes: !this.state.waterYes
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        waterYes: !this.state.waterYes,
+                                        waterNo: false
+
+                                    });
+                                }
                             }}
-                            isChecked={this.state.isAnother}
+                            isChecked={this.state.waterYes}
                             rightText={"Yes"}
                         />
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:10}}
                             onClick={()=>{
-                                this.setState({
-                                    isChecked:!this.state.isChecked
-                                })
+                                if(this.state.waterNo) {
+                                    this.setState({
+                                        waterNo: !this.state.waterNo
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        waterNo: !this.state.waterNo,
+                                        waterYes: false
+
+                                    });
+                                }
                             }}
-                            isChecked={this.state.isChecked}
+                            isChecked={this.state.waterNo}
                             rightText={"No"}
                         />
                     </View>

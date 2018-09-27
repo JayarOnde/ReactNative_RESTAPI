@@ -105,7 +105,7 @@ export default class LiquidDetails extends Component {
                             <View style={{justifyContent: 'flex-end', marginBottom:5,marginTop:20}}>
                                 <TouchableOpacity onPress={this.aluminiumSelected}>
                                     <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>DSONA PRIMER</Text>
+                                        <Text style={styles.buttonTextNext}>DASONA PRIMER</Text>
                                         <TouchableOpacity onPress={this.submit}>
                                             <View style={{ justifyContent: 'flex-end',
                                                 alignItems: 'center',
@@ -138,7 +138,7 @@ export default class LiquidDetails extends Component {
                             </View>: <View style={{justifyContent: 'flex-end', marginBottom:5,marginTop:20}}>
                                 <TouchableOpacity onPress={this.aluminiumSelected}>
                                     <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>DSONA PRIMER</Text>
+                                        <Text style={styles.buttonTextNext}>DASONA PRIMER</Text>
                                         <Image source={require('../Images/Aluminium/dropdown.png')} resizeMode="stretch" style={{width: 15, height: 15,position:'absolute',right:20}}/>
                                     </View>
                                 </TouchableOpacity>

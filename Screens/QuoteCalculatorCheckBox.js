@@ -16,19 +16,14 @@ export default class QuoteCalculatorCheckBox extends Component {
     constructor(props) {
         super(props);
         this.state={
-            isChecked:false,
+            singlePlyChecked:false,
+            doublePlyChecked:false,
+            liquidChecked:false,
+            aluminiumChecked:false,
+            granuleChecked:false,
+            baseChecked:false,
             isAnother:false,
-        }
-
-        this.state = {
-            FlatListItems: [
-                {key: '1', name: "Master Bedroom"},
-                {key: '2', name: "Bathroom 1"},
-                {key: '3', name: "Bathroom 2"},
-                {key: '4', name: "Bathroom 3"}
-            ]
         };
-
         this.goBack = this.goBack.bind(this);
         this.showForm = this.showForm.bind(this);
     }
@@ -119,30 +114,30 @@ export default class QuoteCalculatorCheckBox extends Component {
               style={{padding:5,marginLeft:20,marginTop:30}}
               onClick={()=>{
                   this.setState({
-                      isAnother:!this.state.isAnother
+                      singlePlyChecked:!this.state.singlePlyChecked
                   })
               }}
-              isChecked={this.state.isAnother}
+              isChecked={this.state.singlePlyChecked}
               rightText={"Single Ply"}
           />
           <CheckBox
               style={{padding:5,marginLeft:20,marginTop:10}}
               onClick={()=>{
                   this.setState({
-                      isChecked:!this.state.isChecked
+                      doublePlyChecked:!this.state.doublePlyChecked
                   })
               }}
-              isChecked={this.state.isChecked}
+              isChecked={this.state.doublePlyChecked}
               rightText={"Double Ply"}
           />
           <CheckBox
               style={{padding:5,marginLeft:20,marginTop:10}}
               onClick={()=>{
                   this.setState({
-                      isChecked:!this.state.isChecked
+                      liquidChecked:!this.state.liquidChecked
                   })
               }}
-              isChecked={this.state.isChecked}
+              isChecked={this.state.liquidChecked}
               rightText={"Liquid Product"}
           />
       </View>
@@ -179,30 +174,30 @@ export default class QuoteCalculatorCheckBox extends Component {
                             style={{padding:5,marginLeft:20,marginTop:30}}
                             onClick={()=>{
                                 this.setState({
-                                    isAnother:!this.state.isAnother
+                                    aluminiumChecked:!this.state.aluminiumChecked
                                 })
                             }}
-                            isChecked={this.state.isAnother}
+                            isChecked={this.state.aluminiumChecked}
                             rightText={"Aluminium"}
                         />
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:10}}
                             onClick={()=>{
                                 this.setState({
-                                    isChecked:!this.state.isChecked
+                                    granuleChecked:!this.state.granuleChecked
                                 })
                             }}
-                            isChecked={this.state.isChecked}
+                            isChecked={this.state.granuleChecked}
                             rightText={"Granule"}
                         />
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:10}}
                             onClick={()=>{
                                 this.setState({
-                                    isChecked:!this.state.isChecked
+                                    baseChecked:!this.state.baseChecked
                                 })
                             }}
-                            isChecked={this.state.isChecked}
+                            isChecked={this.state.baseChecked}
                             rightText={"Base with finish coat"}
                         />
                     </View>

@@ -17,7 +17,8 @@ export default class QuoteCalculatorPenetration extends Component {
     constructor(props) {
         super(props);
         this.state={
-            isChecked:false,
+            penetrationYes:false,
+            penetrationNo:false,
             isAnother:false,
             selectedValue:'',
         };
@@ -127,21 +128,43 @@ export default class QuoteCalculatorPenetration extends Component {
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:30}}
                             onClick={()=>{
-                                this.setState({
-                                    isAnother:!this.state.isAnother
-                                })
+                                if(this.state.penetrationYes) {
+                                    this.setState({
+                                        penetrationYes: !this.state.penetrationYes
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        penetrationYes: !this.state.penetrationYes,
+                                        penetrationNo: false
+
+                                    });
+                                }
                             }}
-                            isChecked={this.state.isAnother}
+                            isChecked={this.state.penetrationYes}
                             rightText={"Yes"}
                         />
                         <CheckBox
                             style={{padding:5,marginLeft:20,marginTop:10}}
                             onClick={()=>{
-                                this.setState({
-                                    isChecked:!this.state.isChecked
-                                })
+                                if(this.state.penetrationNo) {
+                                    this.setState({
+                                        penetrationNo: !this.state.penetrationNo
+
+                                    });
+                                }
+                                else
+                                {
+                                    this.setState({
+                                        penetrationNo: !this.state.penetrationNo,
+                                        penetrationYes: false
+
+                                    });
+                                }
                             }}
-                            isChecked={this.state.isChecked}
+                            isChecked={this.state.penetrationNo}
                             rightText={"No"}
                         />
 
@@ -182,17 +205,9 @@ export default class QuoteCalculatorPenetration extends Component {
                                             }
                                         }}>
                                         <Picker.Item label="3" value="Vehicle Company"/>
-                                        <Picker.Item label="Honda" value="honda"/>
-                                        <Picker.Item label="Hino" value="hino"/>
-                                        <Picker.Item label="Indus" value="indus "/>
-                                        <Picker.Item label="Master" value="master"/>
-                                        <Picker.Item label="Nissan" value="nissan"/>
-                                        <Picker.Item label="Pak Hero" value="pakhero"/>
-                                        <Picker.Item label="Suzuki" value="suzuki "/>
-                                        <Picker.Item label="Toyota" value="toyota"/>
-                                        <Picker.Item label="United" value="united"/>
-                                        <Picker.Item label="Other" value="other"/>
-                                    </Picker>
+                                        <Picker.Item label="4" value="honda"/>
+                                        <Picker.Item label="5" value="hino"/>
+                                        </Picker>
 
                         </View>
                     </View>

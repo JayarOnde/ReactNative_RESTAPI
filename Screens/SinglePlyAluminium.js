@@ -131,14 +131,21 @@ export default class SinglePlyAluminium extends Component {
                                     DESCRIPTION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Aluminio SA is a self adhered waterproofing membrane. AluminioSA has a very heavy aluminium foil as a top surface protection. A specially formulated self adhesive blend and a release liner on the back side.
-                                </Text>
+                                    Aluminio SA is a self adhered waterproofing membrane.
+                                    AluminioSA has a heavy aluminum foil as a top surface
+                                    protection. A specially formulated self adhesive blend
+                                    and a release liner on the back side.                                </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
                                     INSTALLATION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Peel of the release liner and apply the AluminioSA making sure that all the material is in full contact with the surface by applying uniform pressure throughout the surface material.
-                                </Text>
+                                    Aluminio SA is applied by pressure over a properly
+                                    cleaned and primed surface. First the surface needs to
+                                    be clean, smooth and dry. Then apply the Danosa
+                                    Primer and let dry. Peel off the release liner and apply
+                                    the Aluminio SA making sure that all the material is in
+                                    full contact with the surface by applying uniform
+                                    pressure throughout the surface material.                                </Text>
                             </View>: <View style={{justifyContent: 'flex-end', marginBottom:5,marginTop:20}}>
                                 <TouchableOpacity onPress={this.aluminiumSelected}>
                                     <View style={styles.buttonNext}>
@@ -163,14 +170,23 @@ export default class SinglePlyAluminium extends Component {
                                     DESCRIPTION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Aluminio SA is a self adhered waterproofing membrane. AluminioSA has a very heavy aluminium foil as a top surface protection. A specially formulated self adhesive blend and a release liner on the back side.
-                                </Text>
+                                    Glasdan AL-80-4 is a SBS modified bitumen top
+                                    membrane with a fiberglass mat reinforcement, finished
+                                    with aluminum clad on the top as a protection surface
+                                    and a burn-off film on the other side.                                </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
                                     INSTALLATION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Peel of the release liner and apply the AluminioSA making sure that all the material is in full contact with the surface by applying uniform pressure throughout the surface material.
-                                </Text>
+                                    Glasdan AL-80-4 is a top and flashing membrane to be
+                                    used in conjunction to Danosa Roofing Systems. Glasdan
+                                    AL-80-4 is finished with a heavy embossed aluminum
+                                    clad. The installation procedure is by means of a high
+                                    heat propane torch according to specifications and roof
+                                    requirements.It may be used in Built-up Roofing
+                                    Systems and over most roof decks with positive drainage.
+                                    Contact Danosa for specific approval on other product
+                                    uses.                                </Text>
                             </View>: <View style={{justifyContent: 'flex-end', marginBottom:5}}>
                                 <TouchableOpacity onPress={this.glasseitSelected}>
                                     <View style={styles.buttonNext}>
@@ -206,14 +222,23 @@ export default class SinglePlyAluminium extends Component {
                                     DESCRIPTION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Aluminio SA is a self adhered waterproofing membrane. AluminioSA has a very heavy aluminium foil as a top surface protection. A specially formulated self adhesive blend and a release liner on the back side.
-                                </Text>
+                                    Glasdan AL-80-PEARL WHITE is a SBS modified bitumen
+                                    top membrane with a fiberglass mat reinforcement,
+                                    finished with white aluminum clad on the top as a
+                                    protection surface and a burn-off film on the other side.                                </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
                                     INSTALLATION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Peel of the release liner and apply the AluminioSA making sure that all the material is in full contact with the surface by applying uniform pressure throughout the surface material.
-                                </Text>
+                                    Glasdan AL-80-PEARL WHITE is to be used in conjunction
+                                    to Danosa Roofing Systems. Glasdan AL-80-PEARL
+                                    WHITE is finished with a a white heavy embossed
+                                    aluminum clad. The installation procedure is by means of
+                                    a high heat propane torch according to specifications
+                                    and roof requirements. It may be used in Built-up
+                                    Roofing Systems and over most roof decks with positive
+                                    drainage. Contact Danosa for specific approval on other
+                                    product uses.                                </Text>
                             </View>: <View style={{justifyContent: 'flex-end', marginBottom:5}}>
                                 <TouchableOpacity onPress={this.glasswitSelected}>
                                     <View style={styles.buttonNext}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import PopupDialog, {SlideAnimation, DialogTitle} from 'react-native-popup-dialog';
 import {
     StyleSheet, FlatList, Text, View, Alert, Image, ImageBackground, TextInput,
     Dimensions,
@@ -13,21 +13,28 @@ import QuoteCalculatorCheckBox from "./QuoteCalculatorCheckBox";
 const {width, height} = Dimensions.get('window');
 
 export default class CalculatorLocation extends Component {
-
+popupDialog = null;
+itemData=null;
     constructor(props) {
         super(props);
 
         this.state = {
+            title:'',
+            width:'',
+            height:'',
+            showData:false,
             FlatListItems: [
-                {key: '1', name: "Master Bedroom"},
-                {key: '2', name: "Bathroom 1"},
-                {key: '3', name: "Bathroom 2"},
-                {key: '4', name: "Bathroom 3"}
+                {key: '1', name: "Master Bedroom",width:"",height:""},
+                {key: '2', name: "Bathroom 1",width:"",height:""},
+                {key: '3', name: "Bathroom 2",width:"",height:""},
+                {key: '4', name: "Bathroom 3",width:"",height:""}
             ]
         };
 
         this.goBack = this.goBack.bind(this);
         this.showForm = this.showForm.bind(this);
+        this.openDialog = this.openDialog.bind(this);
+        this.setValues = this.setValues.bind(this);
     }
 
     static navigationOptions = {
@@ -58,6 +65,20 @@ export default class CalculatorLocation extends Component {
 
         Alert.alert(item);
 
+    }
+
+    setValues()
+    {
+
+    }
+
+    openDialog(item)
+    {
+        this.setState({title:item.name,showData:true});
+        this.itemData = item;
+        this
+            .popupDialog
+            .show();
     }
 
     goBack()
@@ -115,7 +136,8 @@ export default class CalculatorLocation extends Component {
                             <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:60,borderRadius:5,borderColor:'#000000',borderWidth:1,marginTop:20,marginLeft:20,marginRight:20}}>
                                 <Text style={styles.item}
                                       onPress={this.GetItem.bind(this, item.key)}> {item.key}{"."} {item.name} </Text>
-                                <TouchableOpacity onPress={this.submit}>
+                                {this.state.showData ? <Text>{item.width}</Text>:null}
+                                <TouchableOpacity onPress={() => this.openDialog(item)}>
                                     <View style={styles.button}>
                                         <Text style={styles.buttonText}>EDIT</Text>
                                     </View>
@@ -148,6 +170,48 @@ export default class CalculatorLocation extends Component {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
+
+                <PopupDialog
+                    ref=
+                        {(popupDialog) => {
+                            this.popupDialog = popupDialog;
+                        }}
+                    height={300}
+                    dialogAnimation={slideAnimation}
+                    dialogTitle=
+                        {<DialogTitle title={this.state.title}/>}>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center'
+                        }}>
+                        <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', height:60,marginTop:20,marginLeft:20,marginRight:20}}>
+                            <Text style={styles.item}> {'<-->'} Width:</Text>
+                            <TouchableOpacity>
+                                <View style={styles.buttonOther}>
+                                    <TextInput style={styles.buttonTextOther}  onChangeText=
+                                        {(text) => this.setState({width: text})} placeholder={"55 ft"}></TextInput>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', height:60,marginTop:10,marginLeft:30,marginRight:20}}>
+                            <Image source={require('../Images/AdLocationEditInput/biNormal1.png')} resizeMode="stretch" style={{width: 20, height: 20,alignSelf:'center',marginLeft:20}}/>
+                            <Text style={{marginTop:30,marginLeft:20}}>Height:</Text>
+                            <TouchableOpacity>
+                                <View style={styles.buttonOther}>
+                                    <TextInput style={styles.buttonTextOther}  onChangeText=
+                                        {(text) => this.setState({height: text})} placeholder={"4 ft"}></TextInput>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.setValues}>
+                            <Text style={styles.buttonText1}>SAVE CHANGES</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </PopupDialog>
             </ImageBackground>
 
         );
@@ -221,6 +285,31 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#00CA9D'
     },
+
+    buttonText1: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#ffffff'
+    },
+
+    buttonOther: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf:'flex-end',
+        padding: 15,
+        marginTop:20,
+        width:80,
+        marginLeft:40,
+        height: 20,
+        marginRight:30,
+        backgroundColor: "#DEF2FF"
+    },
+    buttonTextOther: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#00CA9D',
+        height:50
+    },
     buttonTextNext: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -269,5 +358,22 @@ const styles = StyleSheet.create({
         height:30,
         marginTop:30
     },
+    buttonContainer: {
+        backgroundColor: '#008000',
+        paddingVertical: 5,
+        marginLeft:30,
+        marginRight:30,
+        marginBottom:20,
+        width:250,
+        height:50,
+        alignSelf:'center',
+        justifyContent: 'center',
+        alignItems:'center',
+        borderRadius: 10,
+        borderWidth: 1,
+
+    },
 
 });
+const
+    slideAnimation = new SlideAnimation({slideFrom: 'bottom'});

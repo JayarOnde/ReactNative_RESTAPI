@@ -12,7 +12,7 @@ import {
 import CheckBox from 'react-native-check-box'
 const {width, height} = Dimensions.get('window');
 
-export default class SinglePlyBrowseBy extends Component {
+export default class ForgotPassword extends Component {
 
     constructor(props) {
         super(props);
@@ -24,6 +24,7 @@ export default class SinglePlyBrowseBy extends Component {
         };
 
         this.goBack = this.goBack.bind(this);
+        this.submit = this.submit.bind(this);
         this.terminationSelected= this.terminationSelected.bind(this);
         this.installationSelected= this.installationSelected.bind(this);
 
@@ -32,6 +33,11 @@ export default class SinglePlyBrowseBy extends Component {
     static navigationOptions = {
         header: null
     };
+
+    submit()
+    {
+
+    }
 
     goBack()
     {
@@ -42,9 +48,6 @@ export default class SinglePlyBrowseBy extends Component {
     {
         this.setState({termSelected:!this.state.termSelected,installSelected:false});
         const {navigate} = this.props.navigation;
-        navigate("ProductTermination",{
-            header: this.props.navigation.state.params.header
-        });
     }
     installationSelected()
     {
@@ -81,52 +84,39 @@ export default class SinglePlyBrowseBy extends Component {
                             marginTop: 40,
                             marginLeft: width / 4
                         }}>
-                            {this.props.navigation.state.params.header}
+                            FORGOT PASSWORD
                         </Text>
 
                     </View>
 
 
-                    <View style={{flex:1,flexDirection:'column',marginTop:130, marginLeft:10}}>
+                    <View style={{flex:1,flexDirection:'column',marginTop:height/2.5, marginLeft:30,marginRight:30,alignSelf:'center'}}>
 
                         <Text style={{color:'#015285',fontWeight:'bold',alignSelf:'center'}}>
-                            ======= BROWSE BY =========
+                           RESET YOUR PASSWORD
                         </Text>
+                        <ImageBackground   style={styles.inputContainer3} source={require('../Images/SignUp/profile_background.png')}>
+                            <Image source={require('../Images/SignUp/email.png')} resizeMode="center" style={{width: 20, height: 20,marginTop:20,marginLeft:20}}/>
+                            <TextInput
+                                style={styles.input}
+                                returnKeyType="go"
+                                underlineColorAndroid='transparent'
+                                onChangeText=
+                                    {(text) => this.setState({userPassword: text})}
+                                ref={(input) => {
+                                }}
+                                placeholder="Email address"
+                                placeholderTextColor='#015285'
+                            />
+                        </ImageBackground>
 
-                        {this.state.termSelected ?
-                            <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/12}}>
-                                <TouchableOpacity onPress={this.terminationSelected}>
-                                    <View style={styles.buttonSelected}>
-                                        <Text style={styles.buttonTextSelected}>TERMINATION</Text>
-                                        <Image source={require('../Images/ProductSelection/ShapeNormal.png')} resizeMode="stretch" style={{width: 20, height: 20,marginTop:10,marginLeft:20,position:'absolute',right:20}}/>
-                                    </View>
-                                </TouchableOpacity>
-
-                            </View>: <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/12}}>
-                                <TouchableOpacity onPress={this.terminationSelected}>
-                                    <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>TERMINATION</Text>
-                                    </View>
-                                </TouchableOpacity>
-
-                            </View>}
-                        {this.state.installSelected ?
-                            <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
-                                <TouchableOpacity onPress={this.installationSelected}>
-                                    <View style={styles.buttonSelected}>
-                                        <Text style={styles.buttonTextSelected}>INSTALLATION METHOD</Text>
-                                        <Image source={require('../Images/ProductSelection/ShapeNormal.png')} resizeMode="stretch" style={{width: 20, height: 20,marginTop:10,marginLeft:20,position:'absolute',right:20}}/>
-                                    </View>
-                                </TouchableOpacity>
-
-                            </View>: <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
-                                <TouchableOpacity onPress={this.installationSelected}>
-                                    <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>INSTALLATION METHOD</Text>
-                                    </View>
-                                </TouchableOpacity>
-
-                            </View>}
+                        <View style={{justifyContent: 'center', marginLeft: 15, marginRight: 15}}>
+                            <TouchableOpacity onPress={this.submit}>
+                                <View style={styles.button}>
+                                    <Text style={styles.buttonText}>RESET PASSWORD</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={styles.profilebutton}>
                         <TouchableOpacity onPress={this.goBack}>
@@ -202,17 +192,17 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf:'flex-end',
         padding: 15,
-        borderRadius: 5,
-        width:100,
-        height: '100%',
-        backgroundColor:'#DEF2FF'
+        marginTop:30,
+        backgroundColor: '#00CA9D',
+        borderRadius: 30,
+        borderWidth: 1,
+        borderColor: '#fff'
     },
     buttonText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#00CA9D'
+        color: '#FFFFFF'
     },
     buttonTextNext: {
         fontSize: 16,
@@ -283,5 +273,6 @@ const styles = StyleSheet.create({
         height:30,
         marginTop:30
     },
+
 
 });

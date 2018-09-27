@@ -19,6 +19,8 @@ import SinglePlyBrowseBy from './Screens/SinglePlyBrowseBy.js';
 import ProductTermination from './Screens/ProductTermination.js';
 import SinglePlyAluminium from './Screens/SinglePlyAluminium.js';
 import LiquidDetails from './Screens/LiquidDetails.js';
+import InstalledMethod from './Screens/InstalledMethod.js';
+import ForgotPassword from './Screens/ForgotPassword.js';
 
 const APP = createStackNavigator({
     SplashScreen: {
@@ -65,6 +67,11 @@ const APP = createStackNavigator({
     },
     QutoeFinalize: {
     screen: QutoeFinalize
+    },
+    InstalledMethod: {
+    screen: InstalledMethod
+    }, ForgotPassword: {
+    screen: ForgotPassword
     },
     Menu: {
         screen: Menu

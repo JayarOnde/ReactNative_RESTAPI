@@ -27,6 +27,8 @@ export default class Login extends Component {
         };
 
         this.submit = this.submit.bind(this);
+        this.goSignUp = this.goSignUp.bind(this);
+        this.forgotPassword = this.forgotPassword.bind(this);
         this.onPressLogin =this.onPressLogin.bind(this);
 
     }
@@ -34,6 +36,19 @@ export default class Login extends Component {
     static navigationOptions = {
         header: null
     };
+
+    forgotPassword()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("ForgotPassword");
+
+    }
+
+    goSignUp()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("SignUp");
+    }
 
 
     componentDidMount() {}
@@ -149,17 +164,6 @@ export default class Login extends Component {
                         secureTextEntry/>
                 </ImageBackground>
 
-
-                <CheckBox
-                    style={{padding:5,marginLeft:width/1.8,marginTop:10}}
-                    onClick={()=>{
-                        this.setState({
-                            isChecked:!this.state.isChecked
-                        })
-                    }}
-                    isChecked={this.state.isChecked}
-                    rightText={"Remember Me"}
-                />
                 <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15}}>
                     <TouchableOpacity onPress={this.submit}>
                         <View style={styles.button}>
@@ -169,7 +173,7 @@ export default class Login extends Component {
 
                         <Text
                             style={{marginTop:30,alignSelf:'center',color:'#015285'}}
-                            onPress={this.forgotPasswordDialog}>
+                            onPress={this.forgotPassword}>
                             Forgot your Password ?
                         </Text>
 
@@ -179,7 +183,7 @@ export default class Login extends Component {
                     alignItems: 'center',
                     position: 'absolute',
                     bottom: 40,
-                    left:width/3
+                    left:width/3.5
                 }}>
                     <Text
                         style={{color:'#015285',alignSelf:'center'}}
@@ -193,11 +197,11 @@ export default class Login extends Component {
                     alignItems: 'center',
                     position: 'absolute',
                     bottom: 20,
-                    left:width/2
+                    left:width/2.5
                 }}>
                     <Text
                         style={{color:'#00CA9D',alignSelf:'center'}}
-                        onPress={this.forgotPasswordDialog}>
+                        onPress={this.goSignUp}>
                        SINGUP
 
                     </Text>

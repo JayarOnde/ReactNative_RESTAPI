@@ -10,23 +10,26 @@ import {
     Picker
 } from 'react-native';
 import CheckBox from 'react-native-check-box'
+import SinglePlyBrowseBy from "./SinglePlyBrowseBy";
 const {width, height} = Dimensions.get('window');
 
-export default class SinglePlyBrowseBy extends Component {
+export default class InstalledMethod extends Component {
 
     constructor(props) {
         super(props);
         this.state={
             isChecked:false,
             isAnother:false,
-            termSelected:true,
-            installSelected:false,
+            singleSelected:true,
+            doubleSelected:false,
+            liquidSelected:false,
         };
 
         this.goBack = this.goBack.bind(this);
-        this.terminationSelected= this.terminationSelected.bind(this);
-        this.installationSelected= this.installationSelected.bind(this);
-
+        this.showForm = this.showForm.bind(this);
+        this.singlePlySelected= this.singlePlySelected.bind(this);
+        this.doublePlySelected= this.doublePlySelected.bind(this);
+        this.liquidSelected= this.liquidSelected.bind(this);
     }
 
     static navigationOptions = {
@@ -37,20 +40,36 @@ export default class SinglePlyBrowseBy extends Component {
     {
         this.props.navigation.pop();
     }
+    showForm()
+    {
+        const {navigate} = this.props.navigation;
+        navigate("QutoeFinalize");
 
-    terminationSelected()
-    {
-        this.setState({termSelected:!this.state.termSelected,installSelected:false});
-        const {navigate} = this.props.navigation;
-        navigate("ProductTermination",{
-            header: this.props.navigation.state.params.header
-        });
     }
-    installationSelected()
+
+    singlePlySelected()
     {
-        this.setState({installSelected:!this.state.installSelected,termSelected:false});
-        const {navigate} = this.props.navigation;
-        navigate("InstalledMethod");
+        this.setState({singleSelected:!this.state.singleSelected,doubleSelected:false,liquidSelected:false});
+       /* const {navigate} = this.props.navigation;
+        navigate("SinglePlyBrowseBy", {
+            header: "SINGLE PLY"
+        });*/
+    }
+    doublePlySelected()
+    {
+        this.setState({doubleSelected:!this.state.doubleSelected,singleSelected:false,liquidSelected:false});
+        /*const {navigate} = this.props.navigation;
+        navigate("SinglePlyBrowseBy", {
+            header: "DOUBLE PLY"
+        });*/
+    }
+    liquidSelected()
+    {
+        this.setState({liquidSelected:!this.state.liquidSelected,doubleSelected:false,singleSelected:false});
+       /* const {navigate} = this.props.navigation;
+        navigate("LiquidDetails", {
+            header: "LIQUID"
+        });*/
     }
 
     render() {
@@ -81,7 +100,7 @@ export default class SinglePlyBrowseBy extends Component {
                             marginTop: 40,
                             marginLeft: width / 4
                         }}>
-                            {this.props.navigation.state.params.header}
+                           INSTALLED METHOD
                         </Text>
 
                     </View>
@@ -90,43 +109,61 @@ export default class SinglePlyBrowseBy extends Component {
                     <View style={{flex:1,flexDirection:'column',marginTop:130, marginLeft:10}}>
 
                         <Text style={{color:'#015285',fontWeight:'bold',alignSelf:'center'}}>
-                            ======= BROWSE BY =========
+                            ============ PRODUCT ============
                         </Text>
 
-                        {this.state.termSelected ?
+                        {this.state.singleSelected ?
                             <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/12}}>
-                                <TouchableOpacity onPress={this.terminationSelected}>
+                                <TouchableOpacity onPress={this.singlePlySelected}>
                                     <View style={styles.buttonSelected}>
-                                        <Text style={styles.buttonTextSelected}>TERMINATION</Text>
+                                        <Text style={styles.buttonTextSelected}>TORCH</Text>
                                         <Image source={require('../Images/ProductSelection/ShapeNormal.png')} resizeMode="stretch" style={{width: 20, height: 20,marginTop:10,marginLeft:20,position:'absolute',right:20}}/>
                                     </View>
                                 </TouchableOpacity>
 
                             </View>: <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:height/12}}>
-                                <TouchableOpacity onPress={this.terminationSelected}>
+                                <TouchableOpacity onPress={this.singlePlySelected}>
                                     <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>TERMINATION</Text>
+                                        <Text style={styles.buttonTextNext}>TORCH</Text>
                                     </View>
                                 </TouchableOpacity>
 
                             </View>}
-                        {this.state.installSelected ?
+                        {this.state.doubleSelected ?
                             <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
-                                <TouchableOpacity onPress={this.installationSelected}>
+                                <TouchableOpacity onPress={this.doublePlySelected}>
                                     <View style={styles.buttonSelected}>
-                                        <Text style={styles.buttonTextSelected}>INSTALLATION METHOD</Text>
+                                        <Text style={styles.buttonTextSelected}>COLD APPLIED</Text>
                                         <Image source={require('../Images/ProductSelection/ShapeNormal.png')} resizeMode="stretch" style={{width: 20, height: 20,marginTop:10,marginLeft:20,position:'absolute',right:20}}/>
                                     </View>
                                 </TouchableOpacity>
 
                             </View>: <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
-                                <TouchableOpacity onPress={this.installationSelected}>
+                                <TouchableOpacity onPress={this.doublePlySelected}>
                                     <View style={styles.buttonNext}>
-                                        <Text style={styles.buttonTextNext}>INSTALLATION METHOD</Text>
+                                        <Text style={styles.buttonTextNext}>COLD APPLIED</Text>
                                     </View>
                                 </TouchableOpacity>
 
                             </View>}
+                        {this.state.liquidSelected ?
+                            <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
+                                <TouchableOpacity onPress={this.liquidSelected}>
+                                    <View style={styles.buttonSelected}>
+                                        <Text style={styles.buttonTextSelected}>SELF ADHESIVE</Text>
+                                        <Image source={require('../Images/ProductSelection/ShapeNormal.png')} resizeMode="stretch" style={{width: 20, height: 20,marginTop:10,marginLeft:20,position:'absolute',right:20}}/>
+                                    </View>
+                                </TouchableOpacity>
+
+                            </View>: <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20,marginTop:10}}>
+                                <TouchableOpacity onPress={this.liquidSelected}>
+                                    <View style={styles.buttonNext}>
+                                        <Text style={styles.buttonTextNext}>SELF ADHESIVE</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            </View>}
+
                     </View>
                     <View style={styles.profilebutton}>
                         <TouchableOpacity onPress={this.goBack}>

@@ -12,9 +12,10 @@ import {
     AsyncStorage,
     TouchableOpacity,
     NetInfo,
-    TouchableHighlight
+    TouchableHighlight, BackHandler, BackAndroid
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
+import FCM, { NotificationActionType } from "react-native-fcm";
 
 
 export default class Menu extends Component {
@@ -40,7 +41,23 @@ export default class Menu extends Component {
     };
 
 
-    componentDidMount() {}
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => {return true});
+        FCM.getFCMToken().then(token => {
+            console.log("TOKEN (getFCMToken)", token);
+           // Alert.alert("" + token);
+
+        }).catch(err => console.log(err));
+
+    }
+    handleBackButton() {
+        //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+        return true;
+    }
+    componentWillMount()
+    {
+      //  BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
     submitProfile()
     {

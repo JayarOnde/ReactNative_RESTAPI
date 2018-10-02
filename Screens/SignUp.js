@@ -11,9 +11,11 @@ import {
     AsyncStorage,
     TouchableOpacity,
     NetInfo,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
+import URL from '../Url.js';
 //import { CheckBox } from 'react-native-elements'
 import CheckBox from 'react-native-check-box'
 
@@ -22,16 +24,92 @@ export default class SignUp extends Component {
         super(props);
         this.state = {
             isLoading: false,
+            userFirstName:'',
+            userLastName:'',
+            userCompany:'',
+            userPassword:'',
+            userConfirmPassword:'',
             userEmail: '',
             userMobile: '',
-            checked:true
-        }
+        };
+
+        this.performSignUp = this.performSignUp.bind(this);
+        this.onSignUp = this.onSignUp.bind(this);
 
     }
 
     static navigationOptions = {
         header: null
     };
+
+    performSignUp()
+    {
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if (isConnected) {
+                if (this.state.userFirstName === '' || this.state.userLastName === '' || this.state.userCompany === '' || this.state.userMobile === '' || this.state.userEmail === '' || this.state.userPassword === '' || this.state.userConfirmPassword === '') {
+                    Alert.alert("Kindly Enter All Credentials");
+                }
+                else if (this.state.userPassword !== this.state.userConfirmPassword) {
+                    Alert.alert("Password Does not Match");
+                }
+                else {
+                    this.onSignUp(this.state.userEmail, this.state.userMobile, this.state.userPassword, this.state.userCompany, this.state.userFirstName, this.state.userLastName);
+                }
+            }
+            else {
+                Alert.alert("Danosa Requires Internet Connection");
+            }
+
+        });
+    }
+
+    onSignUp(email, mobile, password, company, firstName, lastName) {
+        console.log("email:" + email);
+        console.log("password:" + password);
+        console.log("company:" + company);
+        console.log("first name:" + firstName);
+        console.log("last name:" + lastName);
+        console.log("company:" + company);
+
+        this.setState({isLoading: true});
+        fetch(URL.apiUrlRegister, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "fname": firstName,
+                "lname": lastName,
+                "email": email,
+                "contactno": mobile,
+                "company": company,
+                "password": password
+            })
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+console.log(JSON.stringify(responseData));
+                this.setState({isLoading: false});
+                if (responseData.message === "Successfully User Signup") {
+                    Alert.alert("SingUp Successfully");
+                    const {navigate} = this.props.navigation;
+                    navigate("LoginOptions");
+                }
+                else {
+
+                    Alert.alert("There is something wrong");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                Alert.alert("Please Check Your Internet Connection");
+                this.setState({isLoading: false});
+
+            });
+
+    }
+
 
 
     componentDidMount() {}
@@ -73,7 +151,7 @@ export default class SignUp extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userFirstName: text})}
                         ref={(input) => {
                         }}
                         placeholder="First name"
@@ -87,7 +165,7 @@ export default class SignUp extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userLastName: text})}
                         ref={(input) => {
                         }}
                         placeholder="Last name"
@@ -101,7 +179,7 @@ export default class SignUp extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userEmail: text})}
                         ref={(input) => {
                         }}
                         placeholder="Email Address"
@@ -117,7 +195,7 @@ export default class SignUp extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userMobile: text})}
                         ref={(input) => {
                         }}
                         placeholder="Contact Number"
@@ -132,7 +210,7 @@ export default class SignUp extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userCompany: text})}
                         ref={(input) => {
                         }}
                         placeholder="Company"
@@ -140,13 +218,44 @@ export default class SignUp extends Component {
                     />
                 </ImageBackground>
 
+                    <ImageBackground   style={styles.inputContainer3} source={require('../Images/SignUp/profile_background.png')}>
+                        <Image source={require('../Images/login/password.png')} resizeMode="center" style={{width: 20, height: 20,marginTop:20,marginLeft:20}}/>
+                        <TextInput
+                            style={styles.input}
+                            returnKeyType="go"
+                            underlineColorAndroid='transparent'
+                            onChangeText=
+                                {(text) => this.setState({userPassword: text})}
+                            ref={(input) => {
+                            }}
+                            placeholder="Password"
+                            placeholderTextColor='#015285'
+                            secureTextEntry/>
+                    </ImageBackground>
+                    <ImageBackground   style={styles.inputContainer3} source={require('../Images/SignUp/profile_background.png')}>
+                        <Image source={require('../Images/login/password.png')} resizeMode="center" style={{width: 20, height: 20,marginTop:20,marginLeft:20}}/>
+                        <TextInput
+                            style={styles.input}
+                            returnKeyType="go"
+                            underlineColorAndroid='transparent'
+                            onChangeText=
+                                {(text) => this.setState({userConfirmPassword: text})}
+                            ref={(input) => {
+                            }}
+                            placeholder="Confirm Password"
+                            placeholderTextColor='#015285'
+                            secureTextEntry/>
+                    </ImageBackground>
+
 
                 <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15,marginBottom:20}}>
-                    <TouchableOpacity onPress={this.showForm}>
-                        <View style={styles.button}>
+                    {this.state.isLoading ?
+                        <TouchableOpacity style={styles.button}>
+                            <ActivityIndicator size="large" color="#ffffff"/>
+                        </TouchableOpacity> :
+                        <TouchableOpacity style={styles.button} onPress={() => this.performSignUp()}>
                             <Text style={styles.buttonText}>SIGN UP</Text>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>}
 
                 </View>
                    {/* <View style={styles.profilebutton}>
@@ -219,5 +328,17 @@ const
             fontSize: 16,
             fontWeight: 'bold',
             color: '#FFFFFF'
-        }
+        },
+        buttonContainer: {
+            backgroundColor: '#008000',
+            paddingVertical: 14,
+            marginBottom: 10,
+            width: '40%',
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            borderRadius: 10,
+            borderWidth: 1,
+
+        },
     });

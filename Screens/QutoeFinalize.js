@@ -8,6 +8,7 @@ import { StyleSheet, FlatList, Text, View, Alert,Image,ImageBackground,TextInput
     ScrollView
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 export default class QutoeFinalize extends Component {
 
@@ -25,6 +26,7 @@ export default class QutoeFinalize extends Component {
             ]};
 
         this.goBack = this.goBack.bind(this);
+        this.createPDF = this.createPDF.bind(this);
     }
     static navigationOptions = {
         header: null
@@ -34,7 +36,59 @@ export default class QutoeFinalize extends Component {
     {
         this.props.navigation.pop();
     }
+    async createPDF() {
+        let options = {
+            html: '<h2>HTML Table</h2>\n' +
+            '\n' +
+            '<table>\n' +
+            '  <tr>\n' +
+            '    <th>Company</th>\n' +
+            '    <th>Contact</th>\n' +
+            '    <th>Country</th>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Alfreds Futterkiste</td>\n' +
+            '    <td>Maria Anders</td>\n' +
+            '    <td>Germany</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Centro comercial Moctezuma</td>\n' +
+            '    <td>Francisco Chang</td>\n' +
+            '    <td>Mexico</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Ernst Handel</td>\n' +
+            '    <td>Roland Mendel</td>\n' +
+            '    <td>Austria</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Island Trading</td>\n' +
+            '    <td>Helen Bennett</td>\n' +
+            '    <td>UK</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Laughing Bacchus Winecellars</td>\n' +
+            '    <td>Yoshi Tannamuri</td>\n' +
+            '    <td>Canada</td>\n' +
+            '  </tr>\n' +
+            '  <tr>\n' +
+            '    <td>Magazzini Alimentari Riuniti</td>\n' +
+            '    <td>Giovanni Rovelli</td>\n' +
+            '    <td>Italy</td>\n' +
+            '  </tr>\n' +
+            '</table>',
+            fileName: 'danosa',
+            directory: 'Documents',
+            base64:true
+        };
 
+        try {
+            const results = await RNHTMLtoPDF.convert(options)
+            console.log(results)
+        } catch (err) {
+            console.error(err)
+        }
+    }
     FlatListItemSeparator = () => {
         return (
             <View
@@ -88,7 +142,7 @@ PRODUCTS NECESSARY TO COMPLETE PROJECT
     <View
         style={{
             position: 'absolute',
-            top: 150,
+            top: 140,
             height: 60,
             width: '100%',
             flex:1,
@@ -141,7 +195,6 @@ PRODUCTS NECESSARY TO COMPLETE PROJECT
                                     height:30,
                                     position:'absolute',
                                     right:60,
-                                    marginTop:10,
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     alignSelf:'flex-end',
@@ -169,9 +222,11 @@ PRODUCTS NECESSARY TO COMPLETE PROJECT
                 alignItems: 'center'
             }}>
 
+            <TouchableOpacity onPress={this.createPDF}>
             <Image source={require('../Images/FinalizeQuote/download.png')}
                    resizeMode="stretch" style={{marginLeft:width/4,width: 40, height: 40}}/>
-            <Image source={require('../Images/FinalizeQuote/share.png')}
+            </TouchableOpacity>
+                <Image source={require('../Images/FinalizeQuote/share.png')}
                    resizeMode="stretch" style={{marginLeft:20,width: 40, height: 40,marginRight:width/6}}/>
         </View>
 
@@ -186,6 +241,8 @@ PRODUCTS NECESSARY TO COMPLETE PROJECT
                 marginRight:100
             }}>
 
+
+
             <Text style={{
                 color: '#015285',
                 alignSelf: 'flex-start',
@@ -194,7 +251,7 @@ PRODUCTS NECESSARY TO COMPLETE PROJECT
                 width: 300,
                 marginLeft:width/5
             }}>
-               SAVE AS PDF              SHARE VIA EMAIL
+               SAVE AS PDF
             </Text>
         </View>
 
@@ -226,7 +283,7 @@ const styles = StyleSheet.create({
 
 // Setting up View inside content in Vertically center.
         flex:1,
-        marginTop: 60
+        marginTop: 40
 
     },
 

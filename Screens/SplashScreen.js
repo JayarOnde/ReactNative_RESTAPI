@@ -34,24 +34,18 @@ export default class SplashScreen extends Component {
 
     decisionToNavigate() {
         const {navigate} = this.props.navigation;
-        // AsyncStorage.getItem("userData").then((value) => {
-        //     if (value) {
-        //         if (JSON.parse(value).user.carDetail === true) {
-        //             navigate("MyMap");
-        //         }
-        //         else {
-        //             const {navigate} = this.props.navigation;
-        //             navigate("CarBasicInfoAttempt");
-        //         }
-        //     }
-        //     else {
-        //         navigate("LoginOptions");
-        //     }
-        // }).catch(function (err) {
-        //     Alert.alert(err.toString())
-        // }).done();
+        AsyncStorage.getItem("userData").then((value) => {
+            if (value) {
+                    const {navigate} = this.props.navigation;
+                    navigate("Menu");
 
-        navigate("LoginOptions");
+            }
+            else {
+                navigate("LoginOptions");
+            }
+        }).catch(function (err) {
+            Alert.alert(err.toString())
+        }).done();
     }
 
     render() {

@@ -10,11 +10,14 @@ import {
     TextInput,
     AsyncStorage,
     TouchableOpacity,
-    NetInfo
+    ActivityIndicator,
+    NetInfo,
+    BackHandler
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
 //import { CheckBox } from 'react-native-elements'
 import CheckBox from 'react-native-check-box'
+import URL from "../Url";
 
 export default class Login extends Component {
     constructor(props) {
@@ -29,13 +32,14 @@ export default class Login extends Component {
         this.submit = this.submit.bind(this);
         this.goSignUp = this.goSignUp.bind(this);
         this.forgotPassword = this.forgotPassword.bind(this);
-        this.onPressLogin =this.onPressLogin.bind(this);
+        this.performLogin =this.performLogin.bind(this);
 
     }
 
     static navigationOptions = {
         header: null
     };
+
 
     forgotPassword()
     {
@@ -51,27 +55,28 @@ export default class Login extends Component {
     }
 
 
-    componentDidMount() {}
-
-    submit()
-    {
-/*        if(this.state.userEmail === "")
-        {
-            Alert.alert("Kindly Provide Email");
-        }
-        else if (this.state.userPassword === "")
-        {
-            Alert.alert("Kindly Provide Password");
-        }
-        else
-        {
-            this.onPressLogin(this.state.userEmail,this.state.userPassword)
-        }*/
-        const {navigate} = this.props.navigation;
-        navigate("Menu");
+    componentDidMount() {
     }
 
-    onPressLogin(email, password) {
+    submit() {
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if (isConnected) {
+                if (this.state.userEmail === '' || this.state.userPassword === '') {
+                    Alert.alert("Kindly Enter All Credentials");
+                }
+                else {
+                    this.performLogin();
+                }
+            }
+            else {
+                Alert.alert("Danosa Requires Internet Connection");
+            }
+
+        });
+
+    }
+
+    performLogin() {
         this.setState({isLoading: true});
         fetch(URL.apiUrlLogin, {
             method: "POST",
@@ -80,37 +85,36 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "login": email,
-                "password": password,
+                "email": this.state.userEmail,
+                "password": this.state.userPassword,
             })
         })
             .then((response) => response.json())
             .then((responseData) => {
-                console.log(responseData)
-                if (responseData.responseCode === 200) {
-                    this.setState({isLoading: false});
-                    /*   AsyncStorage.setItem("userData", JSON.stringify(responseData));
-                       AsyncStorage.setItem("accessToken", JSON.stringify(responseData.access_token));
-                       AsyncStorage.setItem("user_id", JSON.stringify(responseData.user.id));
-                       if (responseData.user.driver) {
-                           AsyncStorage.setItem('car_image', responseData.user.driver.front_image);
-                       }
-                       if (responseData.user.carDetail === true) {
-                           const {navigate} = this.props.navigation;
-                           navigate("MyMap");
-                       }
-                       else {
-                           const {navigate} = this.props.navigation;
-                           navigate("CarBasicInfoAttempt");
-                       }
-                   }*/
+                console.log(responseData);
+                this.setState({isLoading: false});
+
+                if(responseData.uid)
+                {
+                    Alert.alert("Login Successful");
+                    AsyncStorage.setItem("userData", JSON.stringify(responseData));
+                    const {navigate} = this.props.navigation;
+                    navigate("Menu");
                 }
-                else {
-                    this.setState({isLoading: false});
-                    Alert.alert("Invalid Login");
+                else if(responseData.message === "Invalid Credentials , Try Again")
+                {
+                    Alert.alert("Incorrect Credentials");
                 }
+                else
+                {
+                    Alert.alert("You need to Verify your email");
+                }
+
             })
             .catch((error) => {
+                console.log(error);
+                this.setState({isLoading: false});
+
                 Alert.alert("Please Check Your Internet Connection");
             });
     }
@@ -142,7 +146,7 @@ export default class Login extends Component {
                         returnKeyType="go"
                         underlineColorAndroid='transparent'
                         onChangeText=
-                            {(text) => this.setState({userPassword: text})}
+                            {(text) => this.setState({userEmail: text})}
                         ref={(input) => {
                         }}
                         placeholder="Username"
@@ -165,11 +169,13 @@ export default class Login extends Component {
                 </ImageBackground>
 
                 <View style={{justifyContent: 'flex-end', marginLeft: 15, marginRight: 15}}>
-                    <TouchableOpacity onPress={this.submit}>
-                        <View style={styles.button}>
+                    {this.state.isLoading ?
+                        <TouchableOpacity style={styles.button}>
+                            <ActivityIndicator size="large" color="#ffffff"/>
+                        </TouchableOpacity> :
+                        <TouchableOpacity style={styles.button} onPress={() => this.submit()}>
                             <Text style={styles.buttonText}>LOGIN</Text>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>}
 
                         <Text
                             style={{marginTop:30,alignSelf:'center',color:'#015285'}}

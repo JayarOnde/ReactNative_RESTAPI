@@ -11,7 +11,7 @@ import {
     AsyncStorage,
     TouchableOpacity,
     NetInfo,
-    ScrollView
+    ScrollView, BackHandler
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
 //import { CheckBox } from 'react-native-elements'
@@ -25,7 +25,9 @@ export default class Profile extends Component {
             userEmail: '',
             userMobile: '',
             checked:true
-        }
+        };
+
+        this.handleBackButton = this.handleBackButton.bind(this);
 
     }
 
@@ -34,7 +36,20 @@ export default class Profile extends Component {
     };
 
 
-    componentDidMount() {}
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
+    }
+    handleBackButton() {
+        //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+        const {navigate} = this.props.navigation;
+        navigate("Menu");
+        return false;
+    }
+    componentWillMount()
+    {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
 
     render() {
@@ -58,9 +73,10 @@ export default class Profile extends Component {
                         <Image source={require('../Images/EditProfile/profileHeader.png')} resizeMode="center" style={{width: 100, height: 80,marginTop:20,marginLeft:20,alignSelf:'center'}}/>
                     </View>
 
-                    <TouchableOpacity   style={styles.inputContainer}>
+                   {/* <TouchableOpacity   style={styles.inputContainer}>
                         <Image source={require('../Images/EditProfile/editprofileimg.png')} resizeMode="center" style={{width: 100, height: 100}}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
+                    <View style={{flex:1,flexDirection:'column',marginTop:120}}>
                     <ImageBackground   style={styles.inputContainer3} source={require('../Images/SignUp/profile_background.png')}>
                         <Image source={require('../Images/SignUp/username.png')} resizeMode="center" style={{width: 20, height: 20,marginTop:40,marginLeft:20}}/>
                         <View style={{flex:1,flexDirection:'column'}}>
@@ -157,6 +173,8 @@ export default class Profile extends Component {
                             />
                         </View>
                     </ImageBackground>
+
+                    </View>
                     <View style={styles.profilebutton}>
                         <Image source={require('../Images/EditProfile/editbtn.png')} resizeMode="center" style={{width: 50, height: 50}}/>
                     </View>
@@ -173,6 +191,7 @@ const
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'center',
+
             backgroundColor: '#F5FCFF'
         },
         inputContainer: {
@@ -220,12 +239,12 @@ const
         profilebutton: {
             justifyContent: 'center',
             alignItems: 'center',
-            padding: 15,
+            paddingTop: 10,
             position:'absolute',
             top:60,
             right:20,
-            width:80,
-            height:40,
+            width:60,
+            height:35,
             backgroundColor: '#00CA9D',
             borderRadius: 10,
             borderWidth: 1,

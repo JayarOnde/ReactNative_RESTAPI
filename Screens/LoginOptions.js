@@ -5,6 +5,8 @@ import {
     ImageBackground,
     Image,
     Dimensions,
+    BackHandler,
+    BackAndroid,
     Text,
     ActivityIndicator,
     Alert,
@@ -13,6 +15,7 @@ import {
 
 } from 'react-native';
 
+import Permissions from 'react-native-permissions'
 
 const {width, height} = Dimensions.get('window');
 export default class LoginOptions extends Component {
@@ -27,6 +30,27 @@ export default class LoginOptions extends Component {
     };
 
     componentDidMount() {
+        BackAndroid.addEventListener('hardwareBackPress', () => {return true});
+
+        AsyncStorage.getItem("permissions").then((value) => {
+            if (value) {
+                this.setState({isLoading: false});
+            } else {
+                Permissions.request("storage")
+                    .then(locationResponse => {
+                    AsyncStorage.setItem("permissions", "true");
+                });
+            }
+        });
+
+    }
+    handleBackButton() {
+        //ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+        return true;
+    }
+    componentWillMount()
+    {
+       // BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
 

@@ -19,6 +19,8 @@ export default class QuoteCalculatorPenetration extends Component {
         this.state={
             penetrationYes:false,
             penetrationNo:false,
+            height:'',
+            quantity:'',
             isAnother:false,
             selectedValue:'',
         };
@@ -169,20 +171,53 @@ export default class QuoteCalculatorPenetration extends Component {
                         />
 
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:60,borderRadius:8,borderColor:'#00CA9D',borderWidth:2,marginTop:20,marginLeft:20,marginRight:20}}>
-                            <Text style={styles.item}> {'<-->'} Quantity</Text>
-                            <TouchableOpacity onPress={this.submit}>
-                                <View style={styles.button}>
-                                    <Text style={styles.buttonText}>55 ft</Text>
+                            <Text style={styles.item}> {'<-->'} Quantity:</Text>
+                            <TouchableOpacity>
+                                <View style={{justifyContent: 'center',
+                                    flex:1,
+                                    flexDirection:'row',
+                                    alignItems: 'center',
+                                    alignSelf:'flex-end',
+
+                                    width:80,
+                                    marginLeft:40,
+                                    height: 40,
+                                    marginRight:2,
+                                    backgroundColor: "#DEF2FF"}}>
+                                    <TextInput style={{  padding: 10,
+                                        fontSize: 22,
+                                        height: 44,
+                                        color:'#015285',
+                                        marginLeft: 10,
+                                        alignSelf: 'center'}}  onChangeText=
+                                                   {(text) => this.setState({quantity: text})} placeholder={""}></TextInput>
+                                    <Text style={{marginLeft:10}}>ft</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
 
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:60,borderRadius:8,borderColor:'#00CA9D',borderWidth:2,marginTop:20,marginLeft:20,marginRight:20}}>
-                            <Image source={require('../Images/AdLocationEditInput/biNormal1.png')} resizeMode="stretch" style={{width: 20, height: 20,alignSelf:'center',marginLeft:20}}/>
-                            <Text style={styles.item2}>Height:</Text>
-                            <TouchableOpacity onPress={this.submit}>
-                                <View style={styles.button}>
-                                    <Text style={styles.buttonText}>4 ft</Text>
+                            <Text style={styles.item}> {'<-->'} Height:</Text>
+                            <TouchableOpacity>
+                                <View style={{justifyContent: 'center',
+                                    flex:1,
+                                    flexDirection:'row',
+                                    alignItems: 'center',
+                                    alignSelf:'flex-end',
+
+                                    width:80,
+                                    marginLeft:40,
+                                    height: 40,
+                                    marginRight:2,
+                                    backgroundColor: "#DEF2FF"}}>
+                                    <TextInput style={{  padding: 10,
+                                        fontSize: 22,
+                                        height: 44,
+                                        color:'#015285',
+                                        marginLeft: 10,
+                                        alignSelf: 'center'}}  onChangeText=
+                                                   {(text) => this.setState({height: text})} placeholder={""}></TextInput>
+                                    <Text style={{marginLeft:10}}>ft</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

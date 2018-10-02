@@ -22,12 +22,11 @@ itemData=null;
             title:'',
             width:'',
             height:'',
-            showData:false,
             FlatListItems: [
-                {key: '1', name: "Master Bedroom",width:"",height:""},
-                {key: '2', name: "Bathroom 1",width:"",height:""},
-                {key: '3', name: "Bathroom 2",width:"",height:""},
-                {key: '4', name: "Bathroom 3",width:"",height:""}
+                {key: '1', name: "Master Bedroom",width:"",height:"",showData:false},
+                {key: '2', name: "Bathroom 1",width:"",height:"",showData:false},
+                {key: '3', name: "Bathroom 2",width:"",height:"",showData:false},
+                {key: '4', name: "Bathroom 3",width:"",height:"",showData:false}
             ]
         };
 
@@ -69,12 +68,22 @@ itemData=null;
 
     setValues()
     {
+        // 1. Make a shallow copy of the items
+        let recipesCopy = JSON.parse(JSON.stringify(this.state.FlatListItems))
+        //make changes to ingredients
+        recipesCopy[0].width = this.state.width;//whatever new ingredients are
+        recipesCopy[0].height = this.state.height;//whatever new ingredients are
+        recipesCopy[0].showData = true//whatever new ingredients are
+            this.setState({
+                FlatListItems:recipesCopy
+            });
+      this.popupDialog.dismiss();
 
     }
 
     openDialog(item)
     {
-        this.setState({title:item.name,showData:true});
+        this.setState({title:item.name});
         this.itemData = item;
         this
             .popupDialog
@@ -121,7 +130,7 @@ itemData=null;
                 </View>
 
                 <View  style={styles.inputContainer}>
-                    <Image source={require('../Images/AddLocation/locationTag.png')} resizeMode="stretch" style={{marginLeft:10,marginTop:10,width: 25, height: 25}}/>
+                    <Image source={require('../Images/Home/locationPin.png')} resizeMode="stretch" style={{width: 50, height: 50}}/>
                 </View>
                 <View   style={styles.inputContainer1}>
                     <Text style={{color:'#015285',fontWeight:'500',alignSelf:'center',marginTop:20}}>LOCATION</Text>
@@ -133,10 +142,12 @@ itemData=null;
                         data={this.state.FlatListItems}
 
                         renderItem={({item}) =>
-                            <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:60,borderRadius:5,borderColor:'#000000',borderWidth:1,marginTop:20,marginLeft:20,marginRight:20}}>
+                            <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between', height:90,borderRadius:5,borderColor:'#000000',borderWidth:1,marginTop:20,marginLeft:20,marginRight:20}}>
+                               <View style={{flex:1,flexDirection:'column'}}>
                                 <Text style={styles.item}
                                       onPress={this.GetItem.bind(this, item.key)}> {item.key}{"."} {item.name} </Text>
-                                {this.state.showData ? <Text>{item.width}</Text>:null}
+                                {item.showData ? <View style={{flex:1,flexDirection:'column',marginLeft:40}}><Text style={{color:'#015285'}}>Width: {item.width}</Text><Text style={{color:'#015285'}}>Height: {item.height}</Text></View>:<Text></Text>}
+                               </View>
                                 <TouchableOpacity onPress={() => this.openDialog(item)}>
                                     <View style={styles.button}>
                                         <Text style={styles.buttonText}>EDIT</Text>
@@ -188,9 +199,21 @@ itemData=null;
                         <View style={{flex: 1, flexDirection: 'row',justifyContent:'center', height:60,marginTop:20,marginLeft:20,marginRight:20}}>
                             <Text style={styles.item}> {'<-->'} Width:</Text>
                             <TouchableOpacity>
-                                <View style={styles.buttonOther}>
+                                <View style={{justifyContent: 'center',
+                                    flex:1,
+                                    flexDirection:'row',
+                                    alignItems: 'center',
+                                    alignSelf:'flex-end',
+                                    padding: 15,
+                                    marginTop:20,
+                                    width:80,
+                                    marginLeft:40,
+                                    height: 20,
+                                    marginRight:30,
+                                    backgroundColor: "#DEF2FF"}}>
                                     <TextInput style={styles.buttonTextOther}  onChangeText=
-                                        {(text) => this.setState({width: text})} placeholder={"55 ft"}></TextInput>
+                                        {(text) => this.setState({width: text})} placeholder={""}></TextInput>
+                                    <Text style={{marginLeft:10}}>ft</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -199,14 +222,26 @@ itemData=null;
                             <Image source={require('../Images/AdLocationEditInput/biNormal1.png')} resizeMode="stretch" style={{width: 20, height: 20,alignSelf:'center',marginLeft:20}}/>
                             <Text style={{marginTop:30,marginLeft:20}}>Height:</Text>
                             <TouchableOpacity>
-                                <View style={styles.buttonOther}>
+                                <View style={{justifyContent: 'center',
+                                    flex:1,
+                                    flexDirection:'row',
+                                    alignItems: 'center',
+                                    alignSelf:'flex-end',
+                                    padding: 15,
+                                    marginTop:20,
+                                    width:80,
+                                    marginLeft:40,
+                                    height: 20,
+                                    marginRight:30,
+                                    backgroundColor: "#DEF2FF"}}>
                                     <TextInput style={styles.buttonTextOther}  onChangeText=
-                                        {(text) => this.setState({height: text})} placeholder={"4 ft"}></TextInput>
+                                        {(text) => this.setState({height: text})} placeholder={""}></TextInput>
+                                    <Text style={{marginLeft:10}}>ft</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
 
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.setValues}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={this.setValues}>
                             <Text style={styles.buttonText1}>SAVE CHANGES</Text>
                         </TouchableOpacity>
 
@@ -231,10 +266,9 @@ const styles = StyleSheet.create({
     item: {
         padding: 10,
         fontSize: 18,
-
-        height: 44,
+        flexDirection:'column',
+        height: 45,
         marginLeft: 10,
-        alignSelf: 'center'
     },
     container: {
         flex: 1,
@@ -359,11 +393,12 @@ const styles = StyleSheet.create({
         marginTop:30
     },
     buttonContainer: {
-        backgroundColor: '#008000',
+        backgroundColor: '#00CA9D',
         paddingVertical: 5,
         marginLeft:30,
         marginRight:30,
         marginBottom:20,
+    marginTop:20,
         width:250,
         height:50,
         alignSelf:'center',

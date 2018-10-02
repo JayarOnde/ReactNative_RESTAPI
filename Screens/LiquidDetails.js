@@ -127,14 +127,13 @@ export default class LiquidDetails extends Component {
                                     DESCRIPTION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Aluminio SA is a self adhered waterproofing membrane. AluminioSA has a very heavy aluminium foil as a top surface protection. A specially formulated self adhesive blend and a release liner on the back side.
-                                </Text>
+Designed to be used as a first waterproofing layer over concrete ,wood etc. It increases adhesion and compatibility of Danosa's Roof Systems over
+                                these surfaces. It means ASTM D-41 specification</Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
                                     INSTALLATION
                                 </Text>
                                 <Text style={{marginLeft:20,marginTop:20,fontSize:16,color:'#015285'}}>
-                                    Peel of the release liner and apply the AluminioSA making sure that all the material is in full contact with the surface by applying uniform pressure throughout the surface material.
-                                </Text>
+Can be applied with a roller, brush or spraying equipment. Apply a uniform layer of the material at a rate of one gallon per 100-150 square feet. Allow it to dry for 24 hours or less before installing the roof.                                 </Text>
                             </View>: <View style={{justifyContent: 'flex-end', marginBottom:5,marginTop:20}}>
                                 <TouchableOpacity onPress={this.aluminiumSelected}>
                                     <View style={styles.buttonNext}>

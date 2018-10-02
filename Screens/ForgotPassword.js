@@ -7,20 +7,19 @@ import {
     TouchableOpacity,
     NetInfo,
     ScrollView,
+    ActivityIndicator,
     Picker
 } from 'react-native';
 import CheckBox from 'react-native-check-box'
 const {width, height} = Dimensions.get('window');
-
+import URL from '../Url.js';
 export default class ForgotPassword extends Component {
 
     constructor(props) {
         super(props);
         this.state={
-            isChecked:false,
-            isAnother:false,
-            termSelected:true,
-            installSelected:false,
+           isLoading:false,
+            userEmail:''
         };
 
         this.goBack = this.goBack.bind(this);
@@ -34,9 +33,51 @@ export default class ForgotPassword extends Component {
         header: null
     };
 
-    submit()
-    {
 
+
+        submit() {
+
+        if (this.state.userEmail === '') {
+            Alert.alert("Kindly Enter Your Email Address");
+            return;
+        }
+        if (!this.state.userEmail.includes("@")) {
+            Alert.alert("Kindly Enter Valid Email");
+            return;
+        }
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if (isConnected) {
+                this.setState({isLoading: true});
+                fetch(URL.apiForgotPassword, {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "email": this.state.userEmail,
+                    })
+                })
+                    .then((response) => response.json())
+                    .then((responseData) => {
+                        console.log("response is " + JSON.stringify(responseData));
+                        if (responseData.message === "Password Reset email sent !") {
+                            this.setState({isLoading: false});
+                            Alert.alert("Password Reset Link Sent to your Email Address");
+                        }
+                        else {
+                            this.setState({isLoading: false});
+                            Alert.alert("Invalid Email");
+                        }
+                    })
+                    .catch((error) => {
+                        Alert.alert("Please Check Your Internet Connection");
+                    });
+            }
+            else {
+                Alert.alert("InstaXpress Requires Internet");
+            }
+        });
     }
 
     goBack()
@@ -102,7 +143,7 @@ export default class ForgotPassword extends Component {
                                 returnKeyType="go"
                                 underlineColorAndroid='transparent'
                                 onChangeText=
-                                    {(text) => this.setState({userPassword: text})}
+                                    {(text) => this.setState({userEmail: text})}
                                 ref={(input) => {
                                 }}
                                 placeholder="Email address"
@@ -111,11 +152,13 @@ export default class ForgotPassword extends Component {
                         </ImageBackground>
 
                         <View style={{justifyContent: 'center', marginLeft: 15, marginRight: 15}}>
-                            <TouchableOpacity onPress={this.submit}>
-                                <View style={styles.button}>
+                            {this.state.isLoading ?
+                                <TouchableOpacity style={styles.button}>
+                                    <ActivityIndicator size="large" color="#ffffff"/>
+                                </TouchableOpacity> :
+                                <TouchableOpacity style={styles.button} onPress={() => this.submit()}>
                                     <Text style={styles.buttonText}>RESET PASSWORD</Text>
-                                </View>
-                            </TouchableOpacity>
+                                </TouchableOpacity>}
                         </View>
                     </View>
                     <View style={styles.profilebutton}>
